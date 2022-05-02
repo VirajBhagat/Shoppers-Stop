@@ -1,0 +1,157 @@
+
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0px;
+    background: white;
+    box-shadow: 0px 0px 10px 0px;
+    width: 100%;
+    margin: 0px;
+    z-index: 4;
+    position: relative;
+}
+
+.header-content ul{
+    display: flex;
+}
+
+.header-content ul li{
+    margin: 0px 10px;
+    padding: 0px 10px;
+    list-style: none;
+    display: flex;
+}
+
+.header-content ul li a{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.checkItem-main1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 1000px;
+    position: relative;
+    overflow: hidden;
+    background: url("Images/Backgroud-img\ -\ Merge.jpg");
+    background-size: 100% 100%;
+}
+
+.checkItem-main-round-1{
+    position: absolute;
+    top: -16%;
+    right: -11%;
+    height: 400px;
+    width: 400px;
+    border-radius: 100%;
+    background: rgba(0, 195, 255, 0.363);
+    z-index: 3;
+}
+
+.checkItem-main-round-2{
+    bottom: -25%;
+    left: -8%;
+    height: 500px;
+    width: 500px;
+    border-radius: 100%;
+    background: rgba(0, 195, 255, 0.363);
+    position: absolute;
+    z-index: 3;
+}
+
+.checkItem-main-info{
+    margin: 40px 100px;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 450px;
+}
+
+.checkItem-main1 .checkItem-background-mountain{
+    opacity: 0.2;
+    position: absolute;
+    z-index: 1;
+    top: -0%;
+    right: 8%;
+    width: 85%;
+    height: 1000px;
+}
+
+.checkItem-main-allItems{
+    /* display: grid; 
+            grid: auto auto / auto auto; 
+            grid-gap: 10px; 
+            padding: 10px; 
+  justify-content: center;
+  align-content: center;
+  grid: auto auto;
+  gap: 4px;
+  grid-auto-flow: column; */
+
+    padding: 10px;
+    position: relative;
+    z-index: 3;
+    overflow-y: scroll;
+    border: 1px solid black;
+    border-top:none;
+    border-left:none;
+    font-size:1.5em;
+    max-width: 85%;
+    max-height: 90%;
+    background: rgba(255, 255, 255, 0.671);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.68);
+
+     /* grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  grid-auto-rows: 200px;
+    grid-template-areas:
+    ". a a ."
+    ". a a ."; */
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.checkItem-main-allItems::-webkit-scrollbar {
+    display: none;
+}
+
+.checkItem-main-itemsBox{
+    /* grid-area: a;
+    align-self: center;
+    justify-self: center; */
+    padding: 0px 20px;
+    height: 450px !important;
+    margin: 20px;
+    cursor: pointer;
+    display: flex !important;
+    /* flex: 1; */
+    flex-basis: 20%;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.671);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.68);
+}
+
+.checkItem-main-itemsBox img{
+    margin-top: -70px;
+    margin-left: 17px;
+}
+
