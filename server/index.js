@@ -84,13 +84,14 @@ app.post('/api/insertItemlist', upload1.array('Photo'), function (req, res) {
     // Text data from the form
     console.log(req.body);
     // const items = JSON.stringify(req.body.itemList);
-    console.log(req.body.ItemList);
-    console.log(req.body.Photo);
+    const data = JSON.parse(req.body.ItemList);
+    console.log(data[0]);
+    // console.log(req.body.Photo[1].id);
     // Details about the uploaded file
-    console.log(req.files, 'files');
+    // console.log(req.files, 'files');
     // var imagePath = req.file.path;
     // res.redirect(imagePath);
-    // return res.status(201).send();
+    return res.status(201).send();
 
 
 });

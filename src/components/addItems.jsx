@@ -1,3 +1,6 @@
+// Make a new id to checking highest id of state arrays without checking of length of array
+
+
 import React, { Component } from 'react';
 import { useLocation } from 'react-router-dom';
 import Axios from 'axios';
@@ -28,8 +31,30 @@ class addItems extends Component {
             {id:2,productName:'', productType:'', Weight:'', Photo:'', Price:''},
         ],
         username: Cookies.get('name'),
-        photoList:[]
+        photoList:[
+            {id:1, Photo:''},
+            {id:2, Photo:''}
+        ]
     };
+
+    addPhoto = (Lid,Photo) =>{
+        // console.log("Test")
+        for(let i=0; i<this.state.photoList.length; i++){
+            // if(this.state.photoList[i].id!==id){
+            //     this.state.photoList[i]={id:id,Photo:''}
+            // }
+            if(this.state.photoList[i].id===Lid){
+                // this.setState(prevState=>{
+                    let addDataIn_PhotoList = Object.assign({}, this.state.photoList);  
+                    addDataIn_PhotoList[i].Photo=Photo;
+                // })
+            }
+            // const addPhotoElement={id:id,Photo:Photo}
+            // this.setState(prevState => ({
+            //     photoList:[...prevState.photoList, addPhotoElement]
+            // }),()=> {console.log("entered state " + JSON.stringify(this.state.photoList))})
+        }
+    }
 
     saveDataItemList = (val,id) =>{
 
@@ -46,6 +71,13 @@ class addItems extends Component {
                         List[i].Weight = val.target.value;
                     }else if(val.target.name===`Photo${id}`){
                         List[i].Photo = val.target.files[0];
+                        // for(let i=0; i<this.state.ItemList.length; i++){
+                            // console.log("Entered loop")
+                            // this.setState({photoList:[...this.state.photoList,this.state.ItemList[i].Photo]})
+                        // addPhoto(id,i,List)
+                        // }
+                        this.addPhoto(id,List[i].Photo)
+                        
                     }else if(val.target.name==='Price'){
                         List[i].Price = val.target.value;
                     }
@@ -54,6 +86,34 @@ class addItems extends Component {
                 })
             }
         }
+
+        // function addPhoto(Lid,Photo){
+        //     // var Nid=null
+        //     for(let i=0; i<this.state.photoList.length; i++){
+        //         // if(this.state.photoList[i].id!==id){
+        //         //     this.state.photoList[i]={id:id,Photo:''}
+        //         // }
+        //         if(this.state.photoList[i].id===Lid){
+        //             this.setState(prevState=>{
+        //                 let addDataIn_PhotoList = Object.assign({}, prevState.photoList);  
+        //                 addDataIn_PhotoList[i].Photo=Photo;
+        //             })
+        //         }
+        //         // const addPhotoElement={id:id,Photo:Photo}
+        //         // this.setState(prevState => ({
+        //         //     photoList:[...prevState.photoList, addPhotoElement]
+        //         // }),()=> {console.log("entered state " + JSON.stringify(this.state.photoList))})
+        //     }
+        // }
+    
+    // function addPhoto(id,i,List){
+    //     this.setState(prevState => ({
+    //         photoList:[...prevState.photoList, this.state.ItemList[i].Photo]
+    //     }),()=> {console.log("entered state " + JSON.stringify(this.state.photoList))})
+    //     // this.state.photoList[i] = List[i].Photo;
+    // }
+
+        
         // this.setState.ItemList({[val.target.name]: [val.target.value]})
         // const newArr = { id:id, productName:'', productType:val.target.value, weight:'', Photo:'', Price:''}
         // this.setState({ItemList: [...this.state.ItemList,newArr]})
@@ -64,6 +124,9 @@ class addItems extends Component {
     handleAddRow = () =>{
         const newArr = { id:this.state.ItemList.length+1, productName:'', productType:'', Weight:'', Photo:'', Price:''}
         this.setState({ItemList: [...this.state.ItemList,newArr]})
+
+        const photoArr= {id:this.state.photoList.length+1, Photo:''}        
+        this.setState({photoList: [...this.state.photoList,photoArr]})
     }
     
     counter=this.state.ItemList[0]
@@ -72,18 +135,33 @@ class addItems extends Component {
         const photoData=new FormData();
         const username=this.state.username
 
-        for(let i=0; i<this.state.ItemList.length; i++){
-            // this.setState({photoList:[...this.state.photoList,this.state.ItemList[i].Photo]})
-            this.setState(prevState => ({
-                photoList:[...prevState.photoList, this.state.ItemList[i].Photo]
-            }))
-        }
+        // for(let i=0; i<this.state.ItemList.length; i++){
+        //     console.log("Entered loop")
+        //     // this.setState({photoList:[...this.state.photoList,this.state.ItemList[i].Photo]})
+
+        //     this.setState(prevState => ({
+        //         photoList:[...prevState.photoList, this.state.ItemList[i].Photo]
+        //     }),()=> {console.log("entered state " + JSON.stringify(this.state.photoList))})
+        // }
+
+        console.log(this.state.photoList)
 
         this.state.photoList.forEach(file=>{
-            photoData.append("Photo", file);
+            // photoData.append("Photo", JSON.stringify(file.Photo));
+            photoData.append("Photo", file.Photo);
         });
 
-        for(let i=0; i<this.state.ItemList.length; i++){
+        photoData.append('user', username);
+            photoData.append('ItemList', JSON.stringify(this.state.ItemList))
+            Axios.post("http://localhost:3001/api/insertItemlist",photoData).then(response => {
+                console.log(response)
+            }).catch((e)=>{
+                console.log("error: "+ e)
+            })
+        // this.setState({photoList:[]})
+    }
+
+        // for(let i=0; i<this.state.ItemList.length; i++){
             // if(test===1){
             //     photoData.append('Photo1',this.state.ItemList[i].Photo);    
             // }else{
@@ -96,14 +174,14 @@ class addItems extends Component {
             // this.state.photoList.forEach(file=>{
             //     photoData.append("Photo", file);
             // });
-            photoData.append('user', username);
-            photoData.append('ItemList', JSON.stringify(this.state.ItemList))
-            Axios.post("http://localhost:3001/api/insertItemlist",photoData).then(response => {
-                console.log(response)
-            }).catch((e)=>{
-                console.log("error: "+ e)
-            })
-        }
+            // photoData.append('user', username);
+            // photoData.append('ItemList', JSON.stringify(this.state.ItemList))
+            // Axios.post("http://localhost:3001/api/insertItemlist",photoData).then(response => {
+            //     console.log(response)
+            // }).catch((e)=>{
+            //     console.log("error: "+ e)
+            // })
+        // }
 
         // photoData.append('Photo',this.state.ItemList[0].Photo);
 
@@ -150,7 +228,7 @@ class addItems extends Component {
         //     });
 
         // console.log(this.state.ItemList)
-    }
+    // }
 
     resetData=()=>{
         console.log(this.state.ItemList)

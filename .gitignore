@@ -25,6 +25,7 @@ yarn-error.log*
 
 #others
 /server/img
+/server/public
 /src/static_files/Images
 /src/static_files/img
 public/*.png
