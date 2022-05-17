@@ -3,7 +3,11 @@ const express = require('express')
 const app=express()
 const cors=require('cors')
 const multer=require('multer')
-// const fs = require('fs')
+const Cookies = require('js-cookie')
+var cookieParser = require('cookie-parser');
+app.use(cookieParser())
+const fs = require('fs')
+
 
 const mysql= require('mysql')
 const bodyParser = require('body-parser')
@@ -35,7 +39,6 @@ app.get("/api/get", (req,res) => {
 
 app.post("/api/insert", (req,res) => {
     const username=req.body.username
-
     const email=req.body.email
     const password=req.body.password
     if(email !== '' && password !== ''){
@@ -48,14 +51,6 @@ app.post("/api/insert", (req,res) => {
 })
 
 // Saving image
-const storage=multer.diskStorage({
-    destination : (req,file,cb) =>{
-        cb(null, 'public')
-    },
-    filename : (req,file,cb) =>{
-        cb(null, Date.now() + '-' + file.originalname)
-    }
-})
 
 // const upload = multer({storage: storage}).single('Photo')
 // const user = multer({}).single('username');
@@ -67,124 +62,109 @@ const storage=multer.diskStorage({
 
 // })
 
-var storage1 = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'public');
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + file.originalname);
+
+// Saving Files
+const upload = multer({dest: './public'}).array('Photo');
+app.post('/api/insertItemlist',upload, function (req, res) {
+
+    // const photo=req.files[0].originalname
+
+    // console.log(JSON.stringify(this.state.photoList[0].Photo.name))
+
+    const user=req.body.user
+    const ItemList=JSON.parse(req.body.ItemList)
+    // const photo=req.files[0].originalname
+    console.log(ItemList.length)
+
+    for(var i=0;i<ItemList.length;i++){
+        console.log(ItemList[i].productName)
+        const insertQuery= "insert into itemlist values (?,?,?,?,?,?)";
+        db.query(insertQuery, [user,ItemList[i].productName,ItemList[i].productType,ItemList[i].Weight,req.files[i].originalname,ItemList[i].Price], (err,result) => {
+            console.log("test")
+            // res.send(result)
+            console.log(result)
+        })
     }
-  });
-  
-var upload1 = multer({ storage: storage1 });
-
-app.use(express.static(path.join(__dirname, 'public')));
-  
-app.post('/api/insertItemlist', upload1.array('Photo'), function (req, res) {
-    // Text data from the form
-    console.log(req.body);
-    // const items = JSON.stringify(req.body.itemList);
-    const data = JSON.parse(req.body.ItemList);
-    console.log(data[0]);
-    // console.log(req.body.Photo[1].id);
-    // Details about the uploaded file
-    // console.log(req.files, 'files');
-    // var imagePath = req.file.path;
-    // res.redirect(imagePath);
-    return res.status(201).send();
 
 
-});
-  
+    if(!fs.existsSync('public\\'+req.body.user)){
+        fs.mkdir(path.join(__dirname, 'public\\'+req.body.user),(err)=>{
+            if(err){
+                console.log("Unable to create folder")
+            }
+        })
+    }        
 
-// app.post("/api/insertItemlist" , (req,res,file) => {
-//     // console.log('test')
-//     // const ItemList=req.body.ItemList
-//     // console.log("Test")
-//     // console.log(req.body.photoData)
+    for(var i=0;i<req.files.length;i++){
+        let newFileName=req.files[i].originalname;
+        console.log(`./public/${newFileName}`)
+        fs.rename(
+            `./public/${req.files[i].filename}`,
+            `./public/${req.body.user}/${newFileName}`,
+            function(req){
+                console.log("File Saved")
+            }
+        )
+        console.log("File: "+req.files[i].filename+"Added inside " + req.body.user)
+    }
 
-//     // user(req,res,(err) => {
-//     //     if(err){
-//     //         // return res.status(500).json(err)
-//     //         console.log(err)
-//     //     }
-//     //     return console.log()
-//     // })
-
-//     console.log(req.username)
-//     console.log(file.username)
-//     // console.log(req.body.ItemList)
-//     // console.log(req.body.photoData)
-
-//     upload(req,res,(err) => {
-//         if(err){
-//             // return res.status(500).json(err)
-//             console.log(err)
-//         }
-//         return res.status(201).send()
-//     })
+    res.sendStatus(200);
 
 
-//     // if(email !== '' && password !== ''){
-//     //     const insertQuery= "insert into usersData(username,email,password) values (?,?,?)";
-//     //     db.query(insertQuery, [username,email,password], (err,result) => {
-//     //         res.send(result)
-//     //         // console.log(result)
-//     //     })
-//     // }
-// })
+})
 
 
 
-app.get("/api/item",(req,res)=>{
+
+// app.post("/api/insertItemlist", )
+
+
+app.post("/api/getItemList",(req,res)=>{
+    
     //check user
     //get items for that user
 
     // var filepath = __dirname+'\\images\\delivery.png'
     // res.sendFile(__dirname+filepath);
-
-    res.json(
-        [
-            {
-                'p_name':'maggi 4pcs',
-                'p_type':'grocery',
-                'p_weight':'250g',
-                'p_photo':"http://localhost:3001/images/delivery.png",
-                'p_price':'50Rs'
-            },
-            {
-                'p_name':'maggi 4pcs',
-                'p_type':'grocery',
-                'p_weight':'250g',
-                'p_photo':"http://localhost:3001/images/call.png",
-                'p_price':'50Rs'
-            },
-            {
-                'p_name':'maggi 4pcs',
-                'p_type':'grocery',
-                'p_weight':'250g',
-                'p_photo':"http://localhost:3001/images/refund.png",
-                'p_price':'50Rs'
-            },
-            {
-                'p_name':'maggi 4pcs',
-                'p_type':'grocery',
-                'p_weight':'250g',
-                'p_photo':"http://localhost:3001/images/delivery.png",
-                'p_price':'50Rs'
-            }
-        ]
-    )
+    const user=req.body.user
+    const insertQuery= "select * from itemlist where user=?";
+    db.query(insertQuery, user,(err,result) => {
+        console.log(user)
+        res.send(result)
+    })
+    // res.json(
+        // [
+        //     {
+        //         'p_name':'maggi 4pcs',
+        //         'p_type':'grocery',
+        //         'p_weight':'250g',
+        //         'p_photo':"http://localhost:3001/images/delivery.png",
+        //         'p_price':'50Rs'
+        //     },
+        //     {
+        //         'p_name':'maggi 4pcs',
+        //         'p_type':'grocery',
+        //         'p_weight':'250g',
+        //         'p_photo':"http://localhost:3001/images/call.png",
+        //         'p_price':'50Rs'
+        //     },
+        //     {
+        //         'p_name':'maggi 4pcs',
+        //         'p_type':'grocery',
+        //         'p_weight':'250g',
+        //         'p_photo':"http://localhost:3001/images/refund.png",
+        //         'p_price':'50Rs'
+        //     },
+        //     {
+        //         'p_name':'maggi 4pcs',
+        //         'p_type':'grocery',
+        //         'p_weight':'250g',
+        //         'p_photo':"http://localhost:3001/images/delivery.png",
+        //         'p_price':'50Rs'
+        //     }
+        // ]
+    // )
 })
-
-// app.delete("/api/delete/:username", (req,res) => {
-//     const username=req.params.username
-//     console.log(username)
-//     const sqlDelete = "DELETE FROM users WHERE username = ?";
-//     db.query(sqlDelete, username, (err,result) => {
-//         if(err) console.log(err)
-//     })
-// })
 
 
 app.listen(3001,() => {

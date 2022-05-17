@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-
+// import React, { Component } from 'react';
+import React, { Component,useState,useEffect } from 'react';
 // Header
 import Header from './checkItems_header';
 
@@ -41,7 +41,12 @@ class checkItems extends Component {
         
     }
 
+    
+
     render() { 
+        
+
+
         return (
             <div className='Container'>
                 {/* We have to add this headr in addItems.jsx file */}
