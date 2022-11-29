@@ -52,7 +52,7 @@ class addItem extends Component {
 
     changeProps = (val) => {
         console.log(this.props.ItemList)
-        
+        setInterval(3000);
     }
 
     id=this.props.id

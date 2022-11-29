@@ -1,0 +1,175 @@
+
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0px;
+    background: white;
+    box-shadow: 0px 0px 10px 0px;
+    width: 100%;
+    margin: 0px;
+    z-index: 4;
+    position: relative;
+}
+
+.header-content ul{
+    display: flex;
+}
+
+.header-content ul li{
+    margin: 0px 10px;
+    padding: 0px 10px;
+    list-style: none;
+    display: flex;
+}
+
+.header-content ul li a{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.item-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 1000px;
+    position: relative;
+    overflow: hidden;
+    background: url("Images/Backgroud-img\ -\ Merge.jpg");
+    background-size: 100% 100%;
+}
+
+.item-main-round-1{
+    position: absolute;
+    top: -16%;
+    right: -11%;
+    height: 400px;
+    width: 400px;
+    border-radius: 100%;
+    background: rgba(0, 195, 255, 0.363);
+    z-index: 3;
+}
+
+.item-main-round-2{
+    bottom: -25%;
+    left: -8%;
+    height: 500px;
+    width: 500px;
+    border-radius: 100%;
+    background: rgba(0, 195, 255, 0.363);
+    position: absolute;
+    z-index: 3;
+}
+
+.item-main-data{
+
+    display: flex !important;
+    flex-direction: row !important;
+    position: relative;
+    z-index: 3;
+    overflow-y: scroll;
+    font-size:1.5em;
+    max-width: 85%;
+    max-height: 90%;
+
+    padding: 24px;
+    background: rgba( 255, 255, 255, 0.5 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 9px );
+    -webkit-backdrop-filter: blur( 9px );
+    border-radius: 10px;
+    border: 1px solid rgba(94, 94, 94, 0.432);
+   
+}
+
+.item-main-data::-webkit-scrollbar {
+    display: none;
+}
+
+
+.item-main-data-photo{
+    margin: 10px;
+    padding: 19px;
+    background: rgba( 255, 255, 255, 0.5 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 9px );
+    -webkit-backdrop-filter: blur( 9px );
+    border-radius: 10px;
+    border: 1px solid rgba(94, 94, 94, 0.432);
+}
+
+.item-main-data-details{
+    width: 300px;
+    margin: 10px;
+    padding: 19px;
+    background: rgba( 255, 255, 255, 0.5 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 9px );
+    -webkit-backdrop-filter: blur( 9px );
+    border-radius: 10px;
+    border: 1px solid rgba(94, 94, 94, 0.432);
+}
+
+.item-main-data-details-productName{
+    /* width: 100%; */
+    /* height: 40px; */
+
+    width: 100%;
+    /* height: 150px; */
+    /* padding: 12px 20px; */
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    /* background-color: #f8f8f8; */
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    resize: none;
+}
+
+.item-main-data-details-productType{
+
+    width: 100%;
+    /* height: 35px; */
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    /* background-color: #f8f8f8; */
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    resize: none;
+}
+
+.item-main-data-details div{
+    /* width: 100%; */
+
+    margin: 20px 10px;
+    border: 2px;
+    height: 1px;
+    /* height: 200px; */
+    background: black;
+    /* padding: 20px; */
+}
+
+.item-main-data-details span{
+    font-size: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: gray;
+}
+
+.item-main-data-details-price{
+    width: 75%;
+    font-size: 17px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 25px;
+}
+
+.item-main-data-details-weight{
+    margin-top: 10px;
+}
+
+.item-main-data-details p{
+    font-size: 18px;
+    color: rgb(29, 29, 139);
+}
+

@@ -72,7 +72,7 @@
     height: 450px;
 }
 
-.checkItem-main1 .checkItem-background-mountain{
+/* .item-main .checkItem-background-mountain{
     opacity: 0.2;
     position: absolute;
     z-index: 1;
@@ -80,7 +80,7 @@
     right: 8%;
     width: 85%;
     height: 1000px;
-}
+} */
 
 .checkItem-main-allItems{
     /* display: grid; 

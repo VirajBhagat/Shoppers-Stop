@@ -23,8 +23,8 @@ app.use(cors());
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}));
 
-//Images loction
-app.use("/images",express.static("img"))
+//Images location
+// app.use("/images",express.static("public\\Virajbhagat"))
 
 // app.get("/",(req,res) => {
 //     res.send("Hello World")
@@ -78,8 +78,8 @@ app.post('/api/insertItemlist',upload, function (req, res) {
 
     for(var i=0;i<ItemList.length;i++){
         console.log(ItemList[i].productName)
-        const insertQuery= "insert into itemlist values (?,?,?,?,?,?)";
-        db.query(insertQuery, [user,ItemList[i].productName,ItemList[i].productType,ItemList[i].Weight,req.files[i].originalname,ItemList[i].Price], (err,result) => {
+        const insertQuery= "insert into itemlist(user,productName,productType,weight,photoName,price) values (?,?,?,?,?,?)";
+        db.query(insertQuery, [user,ItemList[i].productName,ItemList[i].productType,ItemList[i].Weight,`http://localhost:3001/images/${req.files[i].originalname}`,ItemList[i].Price], (err,result) => {
             console.log("test")
             // res.send(result)
             console.log(result)
@@ -127,6 +127,7 @@ app.post("/api/getItemList",(req,res)=>{
     // var filepath = __dirname+'\\images\\delivery.png'
     // res.sendFile(__dirname+filepath);
     const user=req.body.user
+    app.use("/images",express.static(`public\\${user}`))
     const insertQuery= "select * from itemlist where user=?";
     db.query(insertQuery, user,(err,result) => {
         console.log(user)

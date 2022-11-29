@@ -106,9 +106,10 @@ class addItems extends Component {
     }
 
     resetData=()=>{
+
         console.log(this.state.ItemList)
         console.log(this.state.photoList)
-
+        console.log(this.props.item)
     }
 
     

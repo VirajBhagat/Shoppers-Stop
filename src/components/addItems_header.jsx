@@ -16,7 +16,8 @@ class addItems_header extends Component {
                     <ul>
                     {/* <li><Link to={{pathname:"/Shopers_Stop/Add_Item",state:{username:}}}>Home</Link></li> */}
                     {/* {console.log(Request.params.username)} */}
-                        <li><Link to={`/Shopers_Stop/Check_Items?username=${this.params.get('username')}`}>Check Items</Link></li>
+                        {/* <li><Link to={`/Shopers_Stop/Check_Items?username=${this.params.get('username')}`}>Check Items</Link></li> */}
+                        <li><Link to={`/Shopers_Stop/Check_Items`}>Check Items</Link></li>
                         <li><Link to='/Shopers_Stop/Add_Item'>Customers List</Link></li>
                         <li><Link to='/Shopers_Stop/Add_Item'>Account</Link></li>
                         <li><Link to='/Shopers_Stop/Add_Item'>Log Out</Link></li>

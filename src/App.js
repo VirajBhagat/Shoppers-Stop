@@ -4,6 +4,7 @@ import LoginSignup from './Login_Signup';
 import ShopersStop from './Shopers_Stop';
 import AddItem from './components/addItems';
 import CheckItem from './components/checkItems';
+import Item from './components/Item';
 
 import Upload from './upload';
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/Shopers_Stop' element={<ShopersStop />}/>
         <Route path='/Shopers_Stop/Add_Items' element={<AddItem />}/>
         <Route path='/Shopers_Stop/Check_Items' element={<CheckItem />}/>
+        <Route path='/Shopers_Stop/Item' element={<Item />}/>
         {/* <Route path='/' element={<Upload />}/> */}
       </Routes>
     </BrowserRouter>
